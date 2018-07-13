@@ -63,6 +63,7 @@ router.get('/:id', function(req, res, next) {
 
 
 router.post('/:id', function(req, res, next) {
+  console.log(req.body)
   console.log('call one')
   mongoose.model('questions').findById(req.body.questionID, (err, result) => {
     if (err) throw err;
@@ -70,6 +71,7 @@ router.post('/:id', function(req, res, next) {
     if (result) {
       result.answers.map((item, index) => {
         if (item.answerName == req.body.radio) {
+          console.log('call three')
           let query = {
             user: req.params.id,
             questionID: req.body.questionID
@@ -81,7 +83,6 @@ router.post('/:id', function(req, res, next) {
           let option = {
             new: false,
           };
-          console.log('call three')
           mongoose.model('questionForUsers').findOneAndUpdate(query, update, option, (err, done) => {
             if (err) throw err;
             if (done) {
