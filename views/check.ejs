@@ -43,11 +43,11 @@
     <tbody>
       <% result.map((item, index) => { %>
         <tr>
-          <th scope="row"><%- index %></th>
-          <td><%- questionName %></td>
-          <%- item.answers.map(a => { %>
-            <% if (a.isAnwer) { %>
-              <td><%- a.answerName %>: ANSWER</td>
+          <th scope="row"><%- index + 1%></th>
+          <td><%- item.questionName %></td>
+          <% item.answers.map(a => { %>
+            <% if (a.isAnswer) { %>
+              <td style="background-color: yellow"><%- a.answerName %></td>
             <% } else { %>
               <td><%- a.answerName %></td>
             <% } %>
