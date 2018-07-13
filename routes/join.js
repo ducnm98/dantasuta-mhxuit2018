@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
           user: result._id,
           questionID: questionList[temp]._id
         }
-        questionList.slice(temp,1);
+        questionList.slice(temp - 1,1);
         mongoose.model('questionForUsers').create(insert, (err, done) => {
           if (err) throw err;
         })
