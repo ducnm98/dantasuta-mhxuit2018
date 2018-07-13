@@ -15,6 +15,7 @@ var addQuestion = require('./routes/addQuestion');
 var questionList = require('./routes/question');
 var join = require('./routes/join');
 var check = require('./routes/check');
+var remove = require('./routes/remove');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/question', questionList);
 app.use('/join', join);
 app.use('/check', check);
 app.use('/addquestion', addQuestion);
+app.use('/remove', remove);
 app.use('/', indexRouter);
 
 app.use(flash());
