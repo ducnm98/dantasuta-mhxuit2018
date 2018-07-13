@@ -104,7 +104,6 @@ router.post("/:id", function(req, res, next) {
       }
     });
   } else {
-    console.lolg('avwag')
     res.redirect(`/question/${req.params.id}`)
   }
 });
