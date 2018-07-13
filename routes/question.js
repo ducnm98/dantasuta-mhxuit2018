@@ -49,7 +49,6 @@ router.get('/:id', function(req, res, next) {
                   name: user.name,
                   point: user.point,
                 })
-                next();
               }
             })
           })
@@ -58,14 +57,12 @@ router.get('/:id', function(req, res, next) {
     } 
     else {
       res.redirect('/');
-      next();
     }
   })
 })
 
 
 router.post('/:id', function(req, res, next) {
-  console.log('av')
   console.log('call one')
   mongoose.model('questions').findById(req.body.questionID, (err, result) => {
     if (err) throw err;

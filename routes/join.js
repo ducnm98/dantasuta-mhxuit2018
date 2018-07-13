@@ -12,8 +12,6 @@ router.post('/', function(req, res, next) {
   let insert = {
     name: req.body.name,
   }
-
-  
   mongoose.model('users').create(insert, (err, result) => {
     if (err) throw err;
     mongoose.model('questions').find({}, (err, questionList) => {
@@ -30,7 +28,6 @@ router.post('/', function(req, res, next) {
       }
       let link = `/question/${result._id}`
       return res.redirect(link)
-      next();
     })
   })
     

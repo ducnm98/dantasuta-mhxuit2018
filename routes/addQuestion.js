@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  console.log('awgw')
   res.render('addQuestion');
 });
 
