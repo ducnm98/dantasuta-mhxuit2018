@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
+var flash = require('connect-flash');
 
 var connectDatabase = require('./config/connectDatabase');
 var databaseSchema = require('./config/databaseSchema');
@@ -30,6 +32,8 @@ app.use('/users', usersRouter);
 app.use('/join', join);
 app.use('/addquestion', addQuestion);
 app.use('/question', questionList);
+
+app.use(flash());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

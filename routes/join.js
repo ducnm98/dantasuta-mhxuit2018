@@ -12,13 +12,12 @@ router.post('/', function(req, res, next) {
   let insert = {
     name: req.body.name,
   }
-  console.log('one')
+
+  
   mongoose.model('users').create(insert, (err, result) => {
     if (err) throw err;
-    console.log('two');
     mongoose.model('questions').find({}, (err, questionList) => {
       if (err) throw err;
-      console.log('three')
       for (let i = 0; i < 3; i++) {
         let temp = randomIntFromInterval(1, questionList.length - 1);
         let insert = {
@@ -26,7 +25,6 @@ router.post('/', function(req, res, next) {
           questionID: questionList[temp]._id
         }
         mongoose.model('questionForUsers').create(insert, (err, done) => {
-          console.log('four')
           if (err) throw err;
         })
       }
@@ -35,6 +33,11 @@ router.post('/', function(req, res, next) {
       next();
     })
   })
+    
+
+    
+
+  //  res.send(req.body)
 });
 
 module.exports = router;

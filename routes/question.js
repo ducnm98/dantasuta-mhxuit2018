@@ -10,6 +10,9 @@ findAnswer = (myAnswer, answerList, callback) => {
   })
 };
 
+// Nó không qua trang câu hỏi tiếp theo mà nó báo lỗi nhưu vậy
+// code ở đây, để mình demo cho bác xem thử
+
 router.get('/:id', function(req, res, next) {
   let query = {
     user: req.params.id,
@@ -63,43 +66,41 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/:id', function(req, res, next) {
   console.log('av')
-  let link = '/question/' + req.params.id;
-  return res.redirect(link);
-  // console.log('call one')
-  // mongoose.model('questions').findById(req.body.questionID, (err, result) => {
-  //   if (err) throw err;
-  //   console.log('call two')
-  //   if (result) {
-  //     result.answers.map((item, index) => {
-  //       if (item.answerName == req.body.radio) {
-  //         let query = {
-  //           user: req.params.id,
-  //           questionID: req.body.questionID
-  //         };
-  //         let update = {
-  //           isDone: true,
-  //           isCorrect: item.isAnswer,
-  //         }
-  //         let option = {
-  //           new: false,
-  //         };
-  //         console.log('call three')
-  //         mongoose.model('questionForUsers').findOneAndUpdate(query, update, option, (err, done) => {
-  //           if (err) throw err;
-  //           if (done) {
-  //             console.log('call four')
-  //             console.log('done', done)
-  //             let link = '/question/' + done.user;
-  //             return res.redirect(link);
-  //           }
-  //         })
-  //       }
-  //     })
-  //   }
+  console.log('call one')
+  mongoose.model('questions').findById(req.body.questionID, (err, result) => {
+    if (err) throw err;
+    console.log('call two')
+    if (result) {
+      result.answers.map((item, index) => {
+        if (item.answerName == req.body.radio) {
+          let query = {
+            user: req.params.id,
+            questionID: req.body.questionID
+          };
+          let update = {
+            isDone: true,
+            isCorrect: item.isAnswer,
+          }
+          let option = {
+            new: false,
+          };
+          console.log('call three')
+          mongoose.model('questionForUsers').findOneAndUpdate(query, update, option, (err, done) => {
+            if (err) throw err;
+            if (done) {
+              console.log('call four')
+              console.log('done', done)
+              let link = '/question/' + done.user;
+              return res.redirect(link);
+            }
+          })
+        }
+      })
+    }
   //   // findAnswer(req.body.radio, result.answers, (isCorrect => {
       
   //   // }))
-  // })
+  })
 })
 
 
