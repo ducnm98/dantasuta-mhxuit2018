@@ -16,7 +16,7 @@ router.post('/', function(req, res, next) {
     if (err) throw err;
     mongoose.model('questions').find({}, (err, questionList) => {
       if (err) throw err;
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 15; i++) {
         let temp = randomIntFromInterval(1, questionList.length - 1);
         let insert = {
           user: result._id,

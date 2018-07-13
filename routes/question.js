@@ -16,10 +16,7 @@ router.get("/:id", function(req, res, next) {
     isDone: false
   };
   mongoose.model("users").findById(req.params.id, (err, result) => {
-    if (err) {
-      console.log('errrrrr')
-    }
-    console.log(result)
+    if (err) throw err;
     if (result) {
       mongoose
         .model("questionForUsers")
@@ -34,6 +31,7 @@ router.get("/:id", function(req, res, next) {
               title: "Dân ta sử ta",
               id: req.params.id
             });
+            next();
           } else {
             let query = {
               user: req.params.id,
@@ -43,7 +41,6 @@ router.get("/:id", function(req, res, next) {
               .model("questionForUsers")
               .find(query, (err, point) => {
                 if (err) throw err;
-                point 
                 mongoose
                   .model("users")
                   .findByIdAndUpdate(
@@ -52,12 +49,11 @@ router.get("/:id", function(req, res, next) {
                     (err, user) => {
                       if (err) throw err;
                       if (user) {
-                        console.log('user', user)
-                        console.log('point_1', point)
                         res.render("doneAnswerQuestion", {
                           name: user.name,
-                          point: user.point
+                          point: point.length
                         });
+                        next();
                       }
                     }
                   );
@@ -66,6 +62,7 @@ router.get("/:id", function(req, res, next) {
         });
     } else {
       res.redirect("/");
+      next();
     }
   });
 });
@@ -75,9 +72,11 @@ router.post("/:id", function(req, res, next) {
     if (err) throw err;
     if (result) {
       findAnswer(req.body.radio, result.answers, isCorrect => {
+        console.log('result', result)
         let query = {
           user: req.params.id,
-          questionID: req.body.questionID
+          questionID: req.body.questionID,
+          isDone: false,
         };
         let update = {
           isDone: true,
@@ -91,8 +90,10 @@ router.post("/:id", function(req, res, next) {
           .findOneAndUpdate(query, update, option, (err, done) => {
             if (err) throw err;
             if (done) {
+              console.log('done', done)
               let link = "/question/" + done.user;
               res.redirect(link);
+              next();
             }
           });
       });
