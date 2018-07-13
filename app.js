@@ -13,7 +13,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var addQuestion = require('./routes/addQuestion');
 var questionList = require('./routes/question');
-var join = require('./routes/join')
+var join = require('./routes/join');
+var check = require('./routes/check');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.set('Cache-Control', 'max-age=3000');
 
 app.use('/question', questionList);
 app.use('/join', join);
+app.use('/check', check);
 app.use('/addquestion', addQuestion);
 app.use('/', indexRouter);
 
