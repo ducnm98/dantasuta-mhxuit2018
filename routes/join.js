@@ -9,11 +9,12 @@ function randomIntFromInterval(min,max)
 /* GET home page. */
 router.post('/', function(req, res, next) {
   console.log('Received method post');
-  let time = new Date();
+  let startTime = new Date();
+  let endTime = startTime.setMinutes(startTime.getMinutes() + 10 )
   let insert = {
     name: req.body.name,
-    startTime: time,
-    endTime: time + (10 * 60 * 1000)
+    startTime: startTime,
+    endTime: endTime
   }
   mongoose.model('users').create(insert, (err, result) => {
     if (err) throw err;

@@ -18,6 +18,7 @@ router.get("/:id", function(req, res, next) {
   mongoose.model("users").findById(req.params.id, (err, result) => {
     if (err) throw err;
     if (result) {
+      console.log('result', result)
       mongoose
         .model("questionForUsers")
         .findOne(query)
@@ -75,6 +76,7 @@ router.post("/:id", function(req, res, next) {
       if (result) {
         findAnswer(req.body.radio, result.answers, isCorrect => {
           console.log('result', result)
+
           let query = {
             user: req.params.id,
             questionID: req.body.questionID,
