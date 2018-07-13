@@ -69,37 +69,41 @@ router.get("/:id", function(req, res, next) {
 });
 
 router.post("/:id", function(req, res, next) {
-  mongoose.model("questions").findById(req.body.questionID, (err, result) => {
-    if (err) throw err;
-    if (result) {
-      findAnswer(req.body.radio, result.answers, isCorrect => {
-        console.log('result', result)
-        let query = {
-          user: req.params.id,
-          questionID: req.body.questionID,
-          isDone: false,
-        };
-        let update = {
-          isDone: true,
-          isCorrect: isCorrect
-        };
-        let option = {
-          new: false
-        };
-        mongoose
-          .model("questionForUsers")
-          .findOneAndUpdate(query, update, option, (err, done) => {
-            if (err) throw err;
-            if (done) {
-              console.log('done', done)
-              let link = "/question/" + done.user;
-              res.redirect(link);
-              next();
-            }
-          });
-      });
-    }
-  });
+  if (req.body.radio != "") {
+    mongoose.model("questions").findById(req.body.questionID, (err, result) => {
+      if (err) throw err;
+      if (result) {
+        findAnswer(req.body.radio, result.answers, isCorrect => {
+          console.log('result', result)
+          let query = {
+            user: req.params.id,
+            questionID: req.body.questionID,
+            isDone: false,
+          };
+          let update = {
+            isDone: true,
+            isCorrect: isCorrect
+          };
+          let option = {
+            new: false
+          };
+          mongoose
+            .model("questionForUsers")
+            .findOneAndUpdate(query, update, option, (err, done) => {
+              if (err) throw err;
+              if (done) {
+                console.log('done', done)
+                let link = "/question/" + done.user;
+                res.redirect(link);
+                next();
+              }
+            });
+        });
+      }
+    });
+  } else {
+    res.redirect(`/question/${req.params.id}`)
+  }
 });
 
 module.exports = router;

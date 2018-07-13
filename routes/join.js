@@ -9,10 +9,11 @@ function randomIntFromInterval(min,max)
 /* GET home page. */
 router.post('/', function(req, res, next) {
   console.log('Received method post');
+  let time = new Date();
   let insert = {
     name: req.body.name,
-    startTime: new Date(),
-    endTime: new Date().getTime() + (10 * 60 * 1000)
+    startTime: time,
+    endTime: time + (10 * 60 * 1000)
   }
   mongoose.model('users').create(insert, (err, result) => {
     if (err) throw err;
@@ -24,9 +25,9 @@ router.post('/', function(req, res, next) {
           user: result._id,
           questionID: questionList[temp]._id
         }
+        questionList.slice(temp - 1, 1);
         mongoose.model('questionForUsers').create(insert, (err, done) => {
           if (err) throw err;
-          questionList.slice(temp - 1,1);
         })
       }
       let link = `/question/${result._id}`

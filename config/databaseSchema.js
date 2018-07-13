@@ -12,12 +12,12 @@ var users = mongoose.Schema({
   startTime: {
     required: true,
     type: Date,
-    default: new Date()
+    // default: new Date()
   },
   endTime: {
     required: true,
     type: Date,
-    default: new Date().getTime() + (10 * 60 * 1000)
+    // default: new Date().getTime() + (10 * 60 * 1000)
   }
 })
 
