@@ -22,9 +22,9 @@ router.post('/', function(req, res, next) {
           user: result._id,
           questionID: questionList[temp]._id
         }
-        questionList.slice(temp - 1,1);
         mongoose.model('questionForUsers').create(insert, (err, done) => {
           if (err) throw err;
+          questionList.slice(temp - 1,1);
         })
       }
       let link = `/question/${result._id}`
