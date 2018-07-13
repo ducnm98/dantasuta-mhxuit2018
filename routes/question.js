@@ -69,7 +69,7 @@ router.get("/:id", function(req, res, next) {
 });
 
 router.post("/:id", function(req, res, next) {
-  if (req.body.radio != "") {
+  if (req.body.radio != null) {
     mongoose.model("questions").findById(req.body.questionID, (err, result) => {
       if (err) throw err;
       if (result) {
@@ -102,6 +102,7 @@ router.post("/:id", function(req, res, next) {
       }
     });
   } else {
+    console.lolg('avwag')
     res.redirect(`/question/${req.params.id}`)
   }
 });
