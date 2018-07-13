@@ -11,6 +11,8 @@ router.post('/', function(req, res, next) {
   console.log('Received method post');
   let insert = {
     name: req.body.name,
+    startTime: new Date(),
+    endTime: new Date().getTime() + (10 * 60 * 1000)
   }
   mongoose.model('users').create(insert, (err, result) => {
     if (err) throw err;

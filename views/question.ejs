@@ -60,13 +60,13 @@
 
   <script>
     // Thiết lập thời gian đích mà ta sẽ đếm   
+    var time = new Date('<%- timer %>').getTime();
     // cập nhập thời gian sau mỗi 1 giây
     var x = setInterval(function() {
       // Lấy thời gian hiện tại
-      var now = new Date().getTime();
       
       // Lấy số thời gian chênh lệch
-      var distance = new Date('<%- timer %>').getTime(); - new Date().getTime();
+      var distance = time; - new Date().getTime();
       // document.getElementById('timer').innerHTML = countDownDate;
    
       // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
@@ -80,7 +80,7 @@
       if (distance < 0) {
         clearInterval(x);
         document.getElementById("timer").innerHTML = "Hết thời gian làm bài";
-        alert("Hết thời gian làm bài!");
+        alert("Hết thời gian làm bài!")
       }
     }, 1000);
   </script>
