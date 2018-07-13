@@ -33,10 +33,17 @@
               <form method="POST" action="/question/<%- id %>">
                 <div class="funkyradio">
                   <% question.questionID.answers.map((item, index) => { %>
-                    <div class="funkyradio-primary">
-                      <input type="radio" name="radio" id="radio<%- index %>" value="<%- item.answerName %>"/>
-                      <label for="radio<%- index %>"><%- item.answerName %></label>
-                    </div>
+                    <% if (index == 0) { %>
+                      <div class="funkyradio-primary">
+                        <input type="radio" name="radio" id="radio<%- index %>" value="<%- item.answerName %>" checked/>
+                        <label for="radio<%- index %>"><%- item.answerName %></label>
+                      </div>
+                    <% } else { %>
+                      <div class="funkyradio-primary">
+                          <input type="radio" name="radio" id="radio<%- index %>" value="<%- item.answerName %>"/>
+                          <label for="radio<%- index %>"><%- item.answerName %></label>
+                        </div>
+                    <% } %>
                   <% }) %>
                   <button type="submit" name="questionID" value="<%- questionID %>" class="btn btn-primary">Câu hỏi tiếp theo</button>
                   <div class="form-group">
