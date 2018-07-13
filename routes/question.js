@@ -29,7 +29,8 @@ router.get("/:id", function(req, res, next) {
               question: question,
               questionID: question.questionID._id,
               title: "Dân ta sử ta",
-              id: req.params.id
+              id: req.params.id,
+              timer: result.endTime,
             });
             next();
           } else {

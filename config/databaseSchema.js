@@ -9,6 +9,16 @@ var users = mongoose.Schema({
     required: false,
     type: Number,
   },
+  startTime: {
+    required: true,
+    type: Date,
+    default: new Date()
+  },
+  endTime: {
+    required: true,
+    type: Date,
+    default: new Date().getTime() + (10 * 60 * 1000)
+  }
 })
 
 var questions = mongoose.Schema({

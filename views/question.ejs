@@ -21,6 +21,7 @@
         <div class="panel panel-primary" style="max-width: 70%;">
           <div class="panel-heading">
             <pre><h3><%- question.questionID.questionName %></h3></pre>
+            <pre><h4><div id="timer"></div></h4></pre>
           </div>
           <!--.panel-heading-->
   
@@ -49,6 +50,34 @@
       </center>
     </div>
   </div>
+
+  <script>
+    // Thiết lập thời gian đích mà ta sẽ đếm
+    var countDownDate = new Date('<%- timer %>').getTime();
+   
+    // cập nhập thời gian sau mỗi 1 giây
+    setInterval(function() {
+      // Lấy thời gian hiện tại
+      var now = new Date().getTime();
+      
+      // Lấy số thời gian chênh lệch
+      var distance = countDownDate - now;
+      // document.getElementById('timer').innerHTML = countDownDate;
+   
+      // Tính toán số ngày, giờ, phút, giây từ thời gian chênh lệch
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+   
+      // HIển thị chuỗi thời gian trong thẻ p
+      document.getElementById("timer").innerHTML = "Còn lại: " + minutes + " Phút " + seconds + " Giây ";
+   
+      // Nếu thời gian kết thúc, hiển thị chuỗi thông báo
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerHTML = "Thời gian đếm ngược đã kết thúc";
+      }
+    }, 1000);
+  </script>
 </body>
 
 </html>
